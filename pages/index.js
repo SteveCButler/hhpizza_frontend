@@ -1,26 +1,43 @@
-import { Button } from 'react-bootstrap';
-import { signOut } from '../utils/auth';
+// import { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
+import Head from 'next/head';
+import { checkUser } from '../utils/auth';
 import { useAuth } from '../utils/context/authContext';
+import HomeMenu from './homeMenu';
 
 function Home() {
   const { user } = useAuth();
+  const [authUser, setAuthUser] = useState();
+
+  useEffect(() => {
+    checkUser(user.uid).then((data) => setAuthUser(data));
+  }, []);
+
   return (
-    <div
-      className="text-center d-flex flex-column justify-content-center align-content-center"
-      style={{
-        height: '90vh',
-        padding: '30px',
-        maxWidth: '400px',
-        margin: '0 auto',
-      }}
-    >
-      <h1>Hello {user.fbUser.displayName}! </h1>
-      <p>Your Bio: {user.bio}</p>
-      <p>Click the button below to logout!</p>
-      <Button variant="danger" type="button" size="lg" className="copy-btn" onClick={signOut}>
-        Sign Out
-      </Button>
-    </div>
+    <>
+      <Head>
+        <title>Home</title>
+      </Head>
+      { authUser?.uid === user.uid ? (
+        <div
+          className="text-center d-flex flex-column justify-content-center align-content-center"
+          style={{
+            height: '90vh',
+            padding: '30px',
+            maxWidth: '1200px',
+            margin: '0 auto',
+          }}
+        >
+          <h1>Hello, {user.fbUser.displayName}!</h1>
+          <HomeMenu />
+        </div>
+      ) : (
+        <div className="text-center mt-5">
+          <h1 className="p-5">You are not authorized!</h1>
+          <p>Please see management for access.</p>
+        </div>
+      )}
+    </>
   );
 }
 
