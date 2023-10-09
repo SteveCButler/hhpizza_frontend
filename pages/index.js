@@ -11,6 +11,7 @@ function Home() {
 
   useEffect(() => {
     checkUser(user.uid).then((data) => setAuthUser(data));
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

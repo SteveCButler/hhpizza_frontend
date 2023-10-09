@@ -16,7 +16,7 @@ export default function ViewOrders() {
   return (
     <div className="mt-5">
       <h1>Orders</h1>
-      {orderList.map((order) => <OrderCard key={order.id} order={order} onUpdate={getOrders} />)}
+      {orderList.map((order) => <OrderCard key={order.id} orderObj={order} onUpdate={getOrders} />)}
     </div>
   );
 }
