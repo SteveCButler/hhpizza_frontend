@@ -1,23 +1,28 @@
 import Card from 'react-bootstrap/Card';
 import PropTypes from 'prop-types';
 
-function OrderCard({ order }) {
-  if (order.status === 'open') {
+function OrderCard({ orderObj }) {
+  if (orderObj.status === 'open') {
     console.warn('OPEN-ORDER');
   }
   return (
+    <>
+      {orderObj.status === 'open' ? (
+        <Card style={{ width: '36rem' }} className="my-3">
+          <Card.Body>
+            <Card.Title>Order: {orderObj.name}</Card.Title>
+            <Card.Subtitle className="mb-2 text-muted">Status: {orderObj.status}</Card.Subtitle>
+            <Card.Text>
+              Customer Phone: {orderObj.customerPhone}
+            </Card.Text>
+            <Card.Link href="#" className="btn btn-small btn-success">View</Card.Link>
+            <Card.Link href="#" className="btn btn-small btn-warning">Edit</Card.Link>
+            <Card.Link href="#" className="btn btn-small btn-danger">Delete</Card.Link>
+          </Card.Body>
+        </Card>
+      ) : (<h4>No open orders</h4>)}
 
-    <Card style={{ width: '36rem' }} className="my-3">
-      <Card.Body>
-        <Card.Title>Order: {order.name}</Card.Title>
-        <Card.Subtitle className="mb-2 text-muted">Status: {order.status}</Card.Subtitle>
-        <Card.Text>
-          Customer Phone: {order.customerPhone}
-        </Card.Text>
-        <Card.Link href="#" className="btn btn-small btn-success">View</Card.Link>
-        <Card.Link href="#" className="btn btn-small btn-warning">Edit</Card.Link>
-      </Card.Body>
-    </Card>
+    </>
   );
 }
 
@@ -31,7 +36,7 @@ const postShape = PropTypes.shape({
 });
 
 OrderCard.propTypes = {
-  order: PropTypes.arrayOf(postShape).isRequired,
+  orderObj: PropTypes.shape(postShape).isRequired,
   // onUpdate: PropTypes.func.isRequired,
 };
 
