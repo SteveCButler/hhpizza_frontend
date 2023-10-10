@@ -12,6 +12,7 @@ export default function ViewOrders() {
 
   useEffect(() => {
     getOrders();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
