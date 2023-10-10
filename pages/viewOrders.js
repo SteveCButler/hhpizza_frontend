@@ -7,7 +7,7 @@ export default function ViewOrders() {
 
   const getOrders = () => {
     getAllOrders().then((data) => setOrderList(data));
-    console.warn('GET ALL ORDERS');
+    console.warn('GET ALL ORDERS', orderList);
   };
 
   useEffect(() => {

@@ -6,7 +6,9 @@ import { deleteOrderById } from '../api/data';
 
 function OrderCard({ orderObj, onUpdate }) {
   const deleteOrder = (id) => {
-    deleteOrderById(id).then(onUpdate());
+    if (window.confirm('Delete This Post?')) {
+      deleteOrderById(id).then(() => onUpdate());
+    }
   };
 
   return (
@@ -54,11 +56,11 @@ OrderCard.propTypes = {
     orderType: PropTypes.string,
     paymentType: PropTypes.string,
   }).isRequired,
-  onUpdate: PropTypes.func,
+  onUpdate: PropTypes.func.isRequired,
 };
 
-OrderCard.defaultProps = {
-  onUpdate: () => {},
-};
+// OrderCard.defaultProps = {
+//   onUpdate: () => {},
+// };
 
 export default OrderCard;
