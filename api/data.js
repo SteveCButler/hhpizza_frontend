@@ -38,7 +38,24 @@ const getAllItems = () => new Promise((resolve, reject) => {
     .catch(reject);
 });
 
+// Delete Order
+const deleteOrderById = (id) => new Promise((resolve, reject) => {
+  fetch(`${dbUrl}/api/order/${id}`, {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json',
+      Accept: 'application/json',
+    },
+  })
+    .then(async (res) => {
+      if (res.ok) {
+        resolve();
+      }
+    })
+    .catch(reject);
+});
 export {
   getAllOrders,
   getAllItems,
+  deleteOrderById,
 };
