@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import Head from 'next/head';
 import { checkUser } from '../utils/auth';
 import { useAuth } from '../utils/context/authContext';
-import HomeMenu from './homeMenu';
+import HomeMenu from '../components/HomeMenu';
 
 function Home() {
   const { user } = useAuth();
@@ -11,6 +11,7 @@ function Home() {
 
   useEffect(() => {
     checkUser(user.uid).then((data) => setAuthUser(data));
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
