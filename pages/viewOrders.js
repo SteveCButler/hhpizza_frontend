@@ -13,10 +13,12 @@ export default function ViewOrders() {
     getOrders();
   }, []);
 
+  console.warn('OrderList: ', orderList);
+
   return (
     <div className="mt-5">
-      <h1>Orders</h1>
-      {orderList.map((order) => <OrderCard key={order.id} orderObj={order} onUpdate={getOrders} />)}
+      {/* <h1>Orders</h1> */}
+      {orderList.length > 0 ? orderList.map((order) => <OrderCard key={order.id} orderObj={order} onUpdate={getOrders} />) : (<h2 className="text-primary">No Open Orders</h2>)}
     </div>
   );
 }
