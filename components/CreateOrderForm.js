@@ -34,7 +34,7 @@ export default function CreateOrderForm() {
     //   updatePost(payload)
     //     .then(() => router.push('/myPostsPage'));
     // } else {
-    const payload = { ...formData, userId: user.id };
+    const payload = { ...formData, userId: user.id, status: 'open' };
     console.warn('PAYLOAD: ', payload);
     createOrder(payload)
       .then(router.push('/viewOrders'))
