@@ -6,17 +6,17 @@ export default function ViewOrders() {
   const [orderList, setOrderList] = useState([]);
 
   const getOrders = () => {
-    getAllOrders().then(setOrderList);
+    getAllOrders().then((data) => setOrderList(data));
+    console.warn('GET ALL ORDERS', orderList);
   };
 
   useEffect(() => {
     getOrders();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  console.warn('OrderList: ', orderList);
-
   return (
-    <div className="mt-5">
+    <div className="mt-3 d-flex flex-wrap gap-3">
       {/* <h1>Orders</h1> */}
       {orderList.length > 0 ? orderList.map((order) => <OrderCard key={order.id} orderObj={order} onUpdate={getOrders} />) : (<h2 className="text-primary">No Open Orders</h2>)}
     </div>
