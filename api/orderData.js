@@ -19,9 +19,9 @@ const getAllOrders = () => new Promise((resolve, reject) => {
     .catch(reject);
 });
 
-// GET ALL ITEMS
-const getAllItems = () => new Promise((resolve, reject) => {
-  fetch(`${dbUrl}/api/item`, {
+// GET ALL ORDERS
+const getOrderDetails = (id) => new Promise((resolve, reject) => {
+  fetch(`${dbUrl}/api/orderDetails/${id}`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -40,7 +40,7 @@ const getAllItems = () => new Promise((resolve, reject) => {
 
 // Delete Order
 const deleteOrderById = (id) => new Promise((resolve, reject) => {
-  fetch(`${dbUrl}/api/order/${id}`, {
+  fetch(`${dbUrl}/api/orderDetails/${id}`, {
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json',
@@ -77,7 +77,7 @@ const createOrder = (payload) => new Promise((resolve, reject) => {
 
 export {
   getAllOrders,
-  getAllItems,
   deleteOrderById,
   createOrder,
+  getOrderDetails,
 };

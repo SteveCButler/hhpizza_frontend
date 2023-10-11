@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { useAuth } from '../utils/context/authContext';
-import { createOrder } from '../api/data';
+import { createOrder } from '../api/orderData';
 
 const initialState = {
   name: '',
@@ -15,7 +15,7 @@ const initialState = {
 };
 
 export default function CreateOrderForm() {
-  const [formData, setFormData] = useState({ initialState });
+  const [formData, setFormData] = useState(initialState);
   const { user } = useAuth();
   const router = useRouter();
 

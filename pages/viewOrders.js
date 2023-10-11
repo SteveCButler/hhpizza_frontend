@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { getAllOrders } from '../api/data';
+import { getAllOrders } from '../api/orderData';
 import OrderCard from '../components/OrderCard';
 
 export default function ViewOrders() {
@@ -7,7 +7,6 @@ export default function ViewOrders() {
 
   const getOrders = () => {
     getAllOrders().then((data) => setOrderList(data));
-    console.warn('GET ALL ORDERS', orderList);
   };
 
   useEffect(() => {

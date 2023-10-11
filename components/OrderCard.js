@@ -2,7 +2,7 @@ import Card from 'react-bootstrap/Card';
 import Link from 'next/link';
 import Button from 'react-bootstrap/Button';
 import PropTypes from 'prop-types';
-import { deleteOrderById } from '../api/data';
+import { deleteOrderById } from '../api/orderData';
 
 function OrderCard({ orderObj, onUpdate }) {
   const deleteOrder = (id) => {
@@ -58,9 +58,5 @@ OrderCard.propTypes = {
   }).isRequired,
   onUpdate: PropTypes.func.isRequired,
 };
-
-// OrderCard.defaultProps = {
-//   onUpdate: () => {},
-// };
 
 export default OrderCard;
