@@ -16,6 +16,7 @@ export default function OrderDetails() {
 
   useEffect(() => {
     getDetails(id);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   console.warn('OrderDetails: ', orderDetails.items);
