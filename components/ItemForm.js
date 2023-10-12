@@ -1,5 +1,16 @@
+// import { useState } from 'react';
+// import { useRouter } from 'next/router';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
+
+// const initialState = {
+//   name: '',
+//   customerPhone: '',
+//   customerEmail: '',
+//   orderType: '',
+//   status: 'open',
+//   userId: 0,
+// };
 
 export default function ItemForm() {
   return (

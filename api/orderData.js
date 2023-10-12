@@ -33,7 +33,7 @@ const getOrderDetails = (id) => new Promise((resolve, reject) => {
       let data;
       if (res.ok) {
         data = await res.json();
-        console.warn('APP-DATA', data);
+        console.warn('API-DATA', data);
         resolve(data);
       }
     })

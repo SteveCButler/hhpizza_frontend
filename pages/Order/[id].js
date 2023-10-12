@@ -10,7 +10,7 @@ export default function OrderDetails() {
   const router = useRouter();
   const { id } = router.query;
 
-  console.warn('Param: ', id);
+  const orderId = id;
 
   const getDetails = () => {
     getOrderDetails(id).then((data) => setOrderDetails(data));
@@ -32,7 +32,7 @@ export default function OrderDetails() {
       <h1 className="mt-5">Order Details</h1>
       {orderDetails.items.map((item) => <ItemCard key={item.id} itemObj={item} onUpdate={getDetails} />)}
 
-      <Link passHref href="/addItem">
+      <Link passHref href={`/Item/${orderId}`}>
         <Button className="btn-secondary me-4">Add Item</Button>
       </Link>
       <Link passHref href="/viewRevenue">
