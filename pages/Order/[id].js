@@ -12,15 +12,15 @@ export default function OrderDetails() {
 
   console.warn('Param: ', id);
 
-  const getDetails = async (orderId) => {
-    const data = await getOrderDetails(orderId);
-    setOrderDetails(data);
+  const getDetails = () => {
+    getOrderDetails(id).then((data) => setOrderDetails(data));
   };
 
   useEffect(() => {
-    getDetails(id);
+    getDetails();
+    // getOrderDetails(id).then((data) => setOrderDetails(data));
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [id]);
+  }, []);
 
   if (orderDetails.items == null) {
     return (<h2>NOTHING THERE</h2>);
@@ -30,7 +30,7 @@ export default function OrderDetails() {
     <Container>
       <h3>{orderDetails.name}</h3>
       <h1 className="mt-5">Order Details</h1>
-      {orderDetails.items.map((item) => <ItemCard key={item.id} itemObj={item} onUpdate={getDetails(id)} />)}
+      {orderDetails.items.map((item) => <ItemCard key={item.id} itemObj={item} onUpdate={getDetails} />)}
 
       <Link passHref href="/addItem">
         <Button className="btn-secondary me-4">Add Item</Button>
