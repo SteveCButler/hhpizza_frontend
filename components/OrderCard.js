@@ -6,7 +6,7 @@ import { deleteOrderById } from '../api/data';
 
 function OrderCard({ orderObj, onUpdate }) {
   const deleteOrder = (id) => {
-    if (window.confirm('Delete This Post?')) {
+    if (window.confirm('Delete This Order?')) {
       deleteOrderById(id).then(() => onUpdate());
     }
   };
