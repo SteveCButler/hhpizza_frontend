@@ -5,7 +5,7 @@ import { deleteItemById } from '../api/itemData';
 
 function ItemCard({ itemObj, onUpdate }) {
   const deleteOrder = (id) => {
-    if (window.confirm('Delete This Post?')) {
+    if (window.confirm('Delete This Item?')) {
       deleteItemById(id)
         .then(() => onUpdate());
     }

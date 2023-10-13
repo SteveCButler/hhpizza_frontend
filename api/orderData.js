@@ -21,7 +21,6 @@ const getAllOrders = () => new Promise((resolve, reject) => {
 
 // GET Order Details
 const getOrderDetails = (id) => new Promise((resolve, reject) => {
-  console.warn('getOrderdetails API CALLED');
   fetch(`${dbUrl}/api/orderDetails/${id}`, {
     method: 'GET',
     headers: {
@@ -33,7 +32,6 @@ const getOrderDetails = (id) => new Promise((resolve, reject) => {
       let data;
       if (res.ok) {
         data = await res.json();
-        console.warn('API-DATA', data);
         resolve(data);
       }
     })

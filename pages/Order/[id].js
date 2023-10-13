@@ -20,10 +20,10 @@ export default function OrderDetails() {
     getDetails();
     // getOrderDetails(id).then((data) => setOrderDetails(data));
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [id]);
 
   if (orderDetails.items == null) {
-    return (<h2>NOTHING THERE</h2>);
+    return (<div />);
   }
 
   return (

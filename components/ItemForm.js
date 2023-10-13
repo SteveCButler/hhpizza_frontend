@@ -3,7 +3,7 @@ import { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { useRouter } from 'next/router';
-import { createItem } from '../api/itemData';
+import { createItemAddToOrder } from '../api/itemData';
 
 const initialState = {
   name: '',
@@ -33,9 +33,9 @@ export default function ItemForm() {
     //   updatePost(payload)
     //     .then(() => router.push('/myPostsPage'));
     // } else {
-    const payload = { ...formData };
+    const payload = { ...formData, orderId: id };
     console.warn('PAYLOAD: ', payload);
-    createItem(payload)
+    createItemAddToOrder(payload)
       .then(router.push(`/Order/${id}`))
       .catch((error) => {
         console.error('API Error:', error);

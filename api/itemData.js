@@ -39,6 +39,26 @@ const createItem = (payload) => new Promise((resolve, reject) => {
     .catch(reject);
 });
 
+// Create Item and Add to Order
+const createItemAddToOrder = (payload) => new Promise((resolve, reject) => {
+  fetch(`${dbUrl}/api/item/${payload.orderId}`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Accept: 'application/json',
+    },
+    body: JSON.stringify(payload),
+  })
+    .then(async (res) => {
+      let data;
+      if (res.ok) {
+        data = await res.json();
+        resolve(data);
+      }
+    })
+    .catch(reject);
+});
+
 // Delete Item
 const deleteItemById = (id) => new Promise((resolve, reject) => {
   fetch(`${dbUrl}/api/item/${id}`, {
@@ -60,4 +80,5 @@ export {
   getAllItems,
   createItem,
   deleteItemById,
+  createItemAddToOrder,
 };
