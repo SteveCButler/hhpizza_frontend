@@ -15,7 +15,7 @@ const initialState = {
 };
 
 export default function CreateOrderForm() {
-  const [formData, setFormData] = useState({ initialState });
+  const [formData, setFormData] = useState(initialState);
   const { user } = useAuth();
   const router = useRouter();
 
