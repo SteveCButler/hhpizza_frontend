@@ -15,6 +15,7 @@ const CloseOrderForm = ({ orderObj }) => {
 
   useEffect(() => {
     setFormData(orderObj);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleChange = (e) => {
@@ -28,7 +29,6 @@ const CloseOrderForm = ({ orderObj }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     const payload = { ...formData, Id: orderObj.id, status: 'closed' };
-    console.warn('PAYLOAD: ', payload);
     closeOrder(payload)
       .then(() => router.push('/viewOrders'));
   };

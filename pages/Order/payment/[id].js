@@ -7,12 +7,11 @@ export default function ViewRevenue() {
   const router = useRouter();
   const { id } = router.query;
   const [order, setOrder] = useState({});
-  console.warn('ID: ', id);
 
   useEffect(() => {
     getOrderDetails(id).then((data) => setOrder(data));
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  console.warn('Order: ', order);
 
   return (
     <>
