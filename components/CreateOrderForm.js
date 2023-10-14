@@ -1,9 +1,10 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
 import { useRouter } from 'next/router';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { useAuth } from '../utils/context/authContext';
-import { createOrder } from '../api/data';
+import { createOrder, updateOrder } from '../api/orderData';
 
 const initialState = {
   name: '',
@@ -14,10 +15,16 @@ const initialState = {
   userId: 0,
 };
 
-export default function CreateOrderForm() {
+export default function CreateOrderForm({ orderObj }) {
   const [formData, setFormData] = useState(initialState);
   const { user } = useAuth();
   const router = useRouter();
+
+  useEffect(() => {
+    if (orderObj.id) {
+      setFormData(orderObj);
+    }
+  }, [orderObj]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -29,19 +36,18 @@ export default function CreateOrderForm() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // if (obj.id) {
-    //   const payload = { ...formData, Id: obj.id };
-    //   updatePost(payload)
-    //     .then(() => router.push('/myPostsPage'));
-    // } else {
-    const payload = { ...formData, userId: user.id, status: 'open' };
-    console.warn('PAYLOAD: ', payload);
-    createOrder(payload)
-      .then(router.push('/viewOrders'))
-      .catch((error) => {
-        console.error('API Error:', error);
-      });
-  // }
+    if (orderObj.id) {
+      const payload = { ...formData, Id: orderObj.id };
+      updateOrder(payload)
+        .then(() => router.push('/viewOrders'));
+    } else {
+      const payload = { ...formData, userId: user.id, status: 'open' };
+      createOrder(payload)
+        .then(router.push('/viewOrders'))
+        .catch((error) => {
+          console.error('API Error:', error);
+        });
+    }
   };
 
   return (
@@ -106,7 +112,7 @@ export default function CreateOrderForm() {
         </Form.Group>
 
         <Button variant="primary" type="submit">
-          Create Order
+          {orderObj.id ? 'Edit' : 'Create'} Order
         </Button>
       </Form>
 
@@ -114,3 +120,19 @@ export default function CreateOrderForm() {
 
   );
 }
+
+CreateOrderForm.propTypes = {
+  orderObj: PropTypes.shape({
+    id: PropTypes.number,
+    name: PropTypes.string,
+    status: PropTypes.string,
+    customerPhone: PropTypes.string,
+    customerEmail: PropTypes.string,
+    orderType: PropTypes.string,
+    paymentType: PropTypes.string,
+  }),
+};
+
+CreateOrderForm.defaultProps = {
+  orderObj: PropTypes.shape(initialState),
+};

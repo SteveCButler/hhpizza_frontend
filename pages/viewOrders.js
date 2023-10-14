@@ -16,9 +16,13 @@ export default function ViewOrders() {
   }, []);
 
   return (
-    <div className="mt-3 d-flex flex-wrap gap-3">
-      {/* <h1>Orders</h1> */}
-      {orderList.length > 0 ? orderList.map((order) => <OrderCard key={order.id} orderObj={order} onUpdate={getOrders} />) : (<h2 className="text-primary">No Open Orders</h2>)}
-    </div>
+    <>
+      <h1 className="mt-3">Orders</h1>
+      <div className="mt-3 d-flex flex-wrap gap-3">
+
+        {orderList.length > 0 ? orderList.map((order) => <OrderCard key={order.id} orderObj={order} onUpdate={getOrders} />) : (<h2 className="text-primary">No Open Orders</h2>)}
+      </div>
+    </>
+
   );
 }

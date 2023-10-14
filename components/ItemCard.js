@@ -1,12 +1,15 @@
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
+// import Link from 'next/link';
 import PropTypes from 'prop-types';
 import { deleteItemById } from '../api/itemData';
 
 function ItemCard({ itemObj, onUpdate }) {
-  const deleteOrder = (id) => {
+  // const { id } = itemObj;
+
+  const deleteItem = (itemId) => {
     if (window.confirm('Delete This Item?')) {
-      deleteItemById(id)
+      deleteItemById(itemId)
         .then(() => onUpdate());
     }
   };
@@ -21,7 +24,12 @@ function ItemCard({ itemObj, onUpdate }) {
           <Card.Text>
             Price: {itemObj.price}
           </Card.Text>
-          <Button variant="danger" onClick={() => deleteOrder(itemObj.id)} className="mt-3 me-3 btn-sm" style={{ height: '32px' }}>
+          {/* <Link passHref href={`/Item/edit/${orderId}-${id}`}>
+            <Button variant="warning" className="mt-3 me-4 btn-sm" style={{ height: '32px' }}>
+              Edit
+            </Button>
+          </Link> */}
+          <Button variant="danger" onClick={() => deleteItem(itemObj.id)} className="mt-3 me-3 btn-sm" style={{ height: '32px' }}>
             Delete
           </Button>
 
@@ -39,6 +47,7 @@ ItemCard.propTypes = {
     price: PropTypes.number,
   }).isRequired,
   onUpdate: PropTypes.func.isRequired,
+  // orderId: PropTypes.number.isRequired,
 };
 
 export default ItemCard;

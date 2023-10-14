@@ -13,10 +13,7 @@ const initialState = {
 export default function ItemForm() {
   const [formData, setFormData] = useState(initialState);
   const router = useRouter();
-  const { orderId } = router.query;
-  const id = orderId;
-
-  console.warn('ORDERID: ', orderId);
+  const { id } = router.query;
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -30,11 +27,10 @@ export default function ItemForm() {
     e.preventDefault();
     // if (obj.id) {
     //   const payload = { ...formData, Id: obj.id };
-    //   updatePost(payload)
-    //     .then(() => router.push('/myPostsPage'));
+    //   updateItem(payload)
+    //     .then(() => router.push('/Order/${orderId}'));
     // } else {
     const payload = { ...formData, orderId: id };
-    console.warn('PAYLOAD: ', payload);
     createItemAddToOrder(payload)
       .then(router.push(`/Order/${id}`))
       .catch((error) => {
@@ -79,5 +75,13 @@ export default function ItemForm() {
 }
 
 // ItemForm.propTypes = {
-//   id: PropTypes.number.isRequired,
+//   itemObj: PropTypes.shape({
+//     id: PropTypes.number,
+//     name: PropTypes.string,
+//     price: PropTypes.number,
+//   }),
+// };
+
+// ItemForm.defaultProps = {
+//   itemObj: PropTypes.shape(initialState),
 // };
