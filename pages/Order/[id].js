@@ -10,14 +10,29 @@ export default function OrderDetails() {
   const router = useRouter();
   const { id } = router.query;
 
+  const getTotal = () => {
+    let orderTotal = 0;
+    const orderItems = orderDetails.items;
+    orderItems.forEach((item) => {
+      orderTotal += item.price;
+    });
+    return orderTotal;
+  };
+
   const getDetails = () => {
-    getOrderDetails(id).then((data) => setOrderDetails(data));
+    getOrderDetails(id)
+      .then((data) => setOrderDetails(data));
+    // .then(getTotal);
   };
 
   useEffect(() => {
     getDetails();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [id]);
+  }, []);
+  let TotalCost = 0;
+  if (orderDetails.items != null) {
+    TotalCost = getTotal();
+  }
 
   if (orderDetails.items == null) {
     return (<div />);
@@ -33,7 +48,9 @@ export default function OrderDetails() {
       <hr />
 
       {orderDetails.items.map((item) => <ItemCard key={item.id} itemObj={item} orderId={orderDetails.id} onUpdate={getDetails} />)}
-
+      <div className="mt-4">
+        <h3 className="mb-4">Total: ${TotalCost} </h3>
+      </div>
       <Link passHref href={`/Item/${id}`}>
         <Button className="btn-secondary me-4">Add Item</Button>
       </Link>
