@@ -9,7 +9,7 @@ const initialState = {
   tip: 0,
 };
 
-const CloseOrderForm = ({ orderObj }) => {
+const CloseOrderForm = ({ orderObj, total }) => {
   const [formData, setFormData] = useState(initialState);
   const router = useRouter();
 
@@ -29,12 +29,15 @@ const CloseOrderForm = ({ orderObj }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     const payload = { ...formData, Id: orderObj.id, status: 'closed' };
+    console.warn('PAYLOAD: ', payload);
     closeOrder(payload)
       .then(() => router.push('/viewOrders'));
   };
 
   return (
     <div className="w-75 bg-secondary text-white p-3 mt-3 rounded-3">
+      <h1 className="mb-3">Order: {orderObj.name}</h1>
+      <p className="mb-4 fs-3 text-bg-dark p-3 rounded-3">Total: ${total.toFixed(2)}</p>
       <Form className="mt-3" onSubmit={handleSubmit}>
 
         <Form.Group className="mb-3" controlId="formPaymentType">
@@ -62,7 +65,7 @@ const CloseOrderForm = ({ orderObj }) => {
           />
         </Form.Group>
 
-        <Button className="mt-3 btn-dark" variant="primary" type="submit">
+        <Button className="mt-5 btn-success fw-semi-bold fs-5" variant="primary" type="submit">
           Close Order
         </Button>
       </Form>
@@ -83,4 +86,5 @@ CloseOrderForm.propTypes = {
     orderType: PropTypes.string,
     paymentType: PropTypes.string,
   }).isRequired,
+  total: PropTypes.number.isRequired,
 };

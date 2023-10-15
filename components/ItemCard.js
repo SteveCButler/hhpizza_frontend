@@ -16,13 +16,13 @@ function ItemCard({ itemObj, onUpdate }) {
 
   return (
     <>
-      <Card className="my-3 w-75">
+      <Card className="mt-4 p-2 w-100">
         <Card.Header className="fw-semibold d-flex justify-content-between">
           <div className="w-25">
             {itemObj.name}
           </div>
           <div className="w-25 text-center">
-            ${itemObj.price}
+            ${itemObj.price.toFixed(2)}
           </div>
           <Button variant="danger" onClick={() => deleteItem(itemObj.id)} className=" me-3 btn-sm" style={{ height: '32px' }}>
             Delete

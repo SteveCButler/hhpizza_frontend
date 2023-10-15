@@ -5,9 +5,13 @@ import OrderCard from '../components/OrderCard';
 export default function ViewOrders() {
   const [orderList, setOrderList] = useState([]);
 
-  const getOrders = async () => {
-    const data = await getAllOrders();
-    setOrderList(data);
+  // const getOrders = async () => {
+  //   const data = await getAllOrders();
+  //   setOrderList(data);
+  // };
+
+  const getOrders = () => {
+    getAllOrders().then(setOrderList);
   };
 
   useEffect(() => {
