@@ -34,7 +34,6 @@ const CloseOrderForm = ({ orderObj, total }) => {
       status: 'closed',
       orderTotal: total,
     };
-    console.warn('PAYLOAD: ', payload);
     closeOrder(payload)
       .then(() => router.push('/viewOrders'));
   };
