@@ -75,9 +75,47 @@ const createOrder = (payload) => new Promise((resolve, reject) => {
     .catch(reject);
 });
 
+// Update Order
+const updateOrder = (payload) => new Promise((resolve, reject) => {
+  fetch(`${dbUrl}/api/order/${payload.id}`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+      Accept: 'application/json',
+    },
+    body: JSON.stringify(payload),
+  })
+    .then(async (res) => {
+      if (res.ok) {
+        resolve();
+      }
+    })
+    .catch(reject);
+});
+
+// Clsoe Order
+const closeOrder = (payload) => new Promise((resolve, reject) => {
+  fetch(`${dbUrl}/api/close-order/${payload.Id}`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+      Accept: 'application/json',
+    },
+    body: JSON.stringify(payload),
+  })
+    .then(async (res) => {
+      if (res.ok) {
+        resolve();
+      }
+    })
+    .catch(reject);
+});
+
 export {
   getAllOrders,
   deleteOrderById,
   createOrder,
   getOrderDetails,
+  updateOrder,
+  closeOrder,
 };

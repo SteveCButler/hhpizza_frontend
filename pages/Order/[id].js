@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Container, Button } from 'react-bootstrap';
+import { Container, Button, Table } from 'react-bootstrap';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { getOrderDetails } from '../../api/orderData';
@@ -10,17 +10,30 @@ export default function OrderDetails() {
   const router = useRouter();
   const { id } = router.query;
 
-  const orderId = id;
+  // const getTotal = () => {
+  //   let orderTotal = 0;
+  //   const orderItems = orderDetails.items;
+  //   orderItems.forEach((item) => {
+  //     orderTotal += item.price;
+  //   });
+  //   return orderTotal;
+  // };
 
   const getDetails = () => {
-    getOrderDetails(id).then((data) => setOrderDetails(data));
+    getOrderDetails(id)
+      .then((data) => setOrderDetails(data));
+    // .then(getTotal);
   };
 
   useEffect(() => {
     getDetails();
-    // getOrderDetails(id).then((data) => setOrderDetails(data));
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [id]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  // let TotalCost = 0;
+  // if (orderDetails.items != null) {
+  //   TotalCost = getTotal();
+  // }
 
   if (orderDetails.items == null) {
     return (<div />);
@@ -28,17 +41,47 @@ export default function OrderDetails() {
 
   return (
     <Container>
-      <h3>{orderDetails.name}</h3>
-      <h1 className="mt-5">Order Details</h1>
-      {orderDetails.items.map((item) => <ItemCard key={item.id} itemObj={item} onUpdate={getDetails} />)}
 
-      <Link passHref href={`/Item/${orderId}`}>
-        <Button className="btn-secondary me-4">Add Item</Button>
-      </Link>
-      <Link passHref href="/viewRevenue">
-        <Button className="btn-dark">Go to Payment</Button>
-      </Link>
+      <Table border className="mt-5">
+        <thead className="mt-3 fw-bold fs-3">
+          <tr>
+            <th>Order:</th>
+            <th>{orderDetails.name}</th>
 
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Status:</td>
+            <td>{orderDetails.status}</td>
+          </tr>
+          <tr>
+            <td>Customer Phone:</td>
+            <td>{orderDetails.customerPhone}</td>
+          </tr>
+          <tr>
+            <td>Customer Email:</td>
+            <td>{orderDetails.customerEmail}</td>
+          </tr>
+          <tr>
+            <td>Order Type:</td>
+            <td>{orderDetails.orderType}</td>
+          </tr>
+        </tbody>
+      </Table>
+
+      {orderDetails.items.map((item) => <ItemCard key={item.id} itemObj={item} orderId={orderDetails.id} onUpdate={getDetails} />)}
+      {/* <div className="mt-4">
+        <h3 className="mb-4">Total: ${TotalCost} </h3>
+      </div> */}
+      <div className="mt-5">
+        <Link passHref href={`/Item/${id}`}>
+          <Button className="btn-secondary me-4">Add Item</Button>
+        </Link>
+        <Link passHref href={`/Order/payment/${id}`}>
+          <Button className="btn-dark">Go to Payment</Button>
+        </Link>
+      </div>
     </Container>
   );
 }

@@ -1,31 +1,33 @@
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
+// import Link from 'next/link';
 import PropTypes from 'prop-types';
 import { deleteItemById } from '../api/itemData';
 
 function ItemCard({ itemObj, onUpdate }) {
-  const deleteOrder = (id) => {
+  // const { id } = itemObj;
+
+  const deleteItem = (itemId) => {
     if (window.confirm('Delete This Item?')) {
-      deleteItemById(id)
+      deleteItemById(itemId)
         .then(() => onUpdate());
     }
   };
 
   return (
     <>
-      <Card style={{ width: '18rem' }} className="my-3">
-        <Card.Body>
-          <Card.Text>
-            Item: {itemObj.name}
-          </Card.Text>
-          <Card.Text>
-            Price: {itemObj.price}
-          </Card.Text>
-          <Button variant="danger" onClick={() => deleteOrder(itemObj.id)} className="mt-3 me-3 btn-sm" style={{ height: '32px' }}>
+      <Card className="mt-4 p-2 w-100">
+        <Card.Header className="fw-semibold d-flex justify-content-between">
+          <div className="w-25">
+            {itemObj.name}
+          </div>
+          <div className="w-25 text-center">
+            ${itemObj.price.toFixed(2)}
+          </div>
+          <Button variant="danger" onClick={() => deleteItem(itemObj.id)} className=" me-3 btn-sm" style={{ height: '32px' }}>
             Delete
           </Button>
-
-        </Card.Body>
+        </Card.Header>
       </Card>
 
     </>
@@ -39,6 +41,7 @@ ItemCard.propTypes = {
     price: PropTypes.number,
   }).isRequired,
   onUpdate: PropTypes.func.isRequired,
+  // orderId: PropTypes.number.isRequired,
 };
 
 export default ItemCard;

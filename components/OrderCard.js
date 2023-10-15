@@ -13,16 +13,16 @@ function OrderCard({ orderObj, onUpdate }) {
 
   return (
     <>
-      {orderObj.status === 'open' ? (
+      {orderObj.status === 'open' && (
         <Card style={{ width: '18rem' }} className="my-3">
           <Card.Body>
-            <Card.Title className="text-center mb-4">ORDER</Card.Title>
-            <Card.Subtitle className="mb-2 text-muted">Name: {orderObj.name}</Card.Subtitle>
+            <Card.Title className="mb-4">{orderObj.name}</Card.Title>
+            {/* <Card.Subtitle className="mb-2 text-muted">Name: {orderObj.name}</Card.Subtitle> */}
             <Card.Text>
-              Customer Phone: {orderObj.customerPhone}
+              Phone: {orderObj.customerPhone}
             </Card.Text>
             <Card.Text>
-              Customer Email: {orderObj.customerEmail}
+              Email: {orderObj.customerEmail}
             </Card.Text>
             <Link passHref href={`/Order/${orderObj.id}`}>
               <Button variant="primary" className="mt-3 ms-4 me-4 btn-sm" style={{ height: '32px' }}>
@@ -40,7 +40,7 @@ function OrderCard({ orderObj, onUpdate }) {
 
           </Card.Body>
         </Card>
-      ) : (<h4>No open orders</h4>)}
+      ) }
 
     </>
   );
