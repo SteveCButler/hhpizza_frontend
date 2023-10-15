@@ -28,8 +28,12 @@ const CloseOrderForm = ({ orderObj, total }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const payload = { ...formData, Id: orderObj.id, status: 'closed' };
-    console.warn('PAYLOAD: ', payload);
+    const payload = {
+      ...formData,
+      Id: orderObj.id,
+      status: 'closed',
+      orderTotal: total,
+    };
     closeOrder(payload)
       .then(() => router.push('/viewOrders'));
   };
@@ -37,7 +41,7 @@ const CloseOrderForm = ({ orderObj, total }) => {
   return (
     <div className="w-75 bg-secondary text-white p-3 mt-3 rounded-3">
       <h1 className="mb-3">Order: {orderObj.name}</h1>
-      <p className="mb-4 fs-3 text-bg-dark p-3 rounded-3">Total: ${total.toFixed(2)}</p>
+      <p className="mb-4 fs-3 text-bg-dark p-3 rounded-3">Total: ${total}</p>
       <Form className="mt-3" onSubmit={handleSubmit}>
 
         <Form.Group className="mb-3" controlId="formPaymentType">

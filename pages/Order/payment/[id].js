@@ -30,7 +30,7 @@ export default function ViewRevenue() {
   return (
     <>
       <h1 className="mt-3">Payment</h1>
-      <CloseOrderForm orderObj={orderDetails} total={TotalCost} />
+      <CloseOrderForm orderObj={orderDetails} total={TotalCost.toFixed(2)} />
     </>
 
   );
