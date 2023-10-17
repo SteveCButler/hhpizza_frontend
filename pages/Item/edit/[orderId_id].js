@@ -6,8 +6,11 @@ import { getItemById } from '../../../api/itemData';
 export default function EditItem() {
   const [itemDetails, setItemDetails] = useState({});
   const router = useRouter();
-  const { id } = router.query;
-  const [orderId, itemId] = id.split('-');
+  const routeId = router.query.orderId_id;
+  const [orderId, itemId] = routeId.split('_');
+
+  console.warn('orderId: ', orderId);
+  console.warn('itemId: ', itemId);
 
   const getItemDetails = () => {
     getItemById(itemId).then((data) => setItemDetails(data));

@@ -1,19 +1,25 @@
-import { useState } from 'react';
-// import PropTypes from 'prop-types';
+import { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { useRouter } from 'next/router';
-import { createItemAddToOrder } from '../api/itemData';
+import { createItemAddToOrder, updateItem } from '../api/itemData';
 
 const initialState = {
   name: '',
   price: 0,
 };
 
-export default function ItemForm() {
+export default function ItemForm({ itemObj, orderId }) {
   const [formData, setFormData] = useState(initialState);
   const router = useRouter();
   const { id } = router.query;
+
+  useEffect(() => {
+    if (itemObj.id) {
+      setFormData(itemObj);
+    }
+  }, [itemObj]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -25,18 +31,18 @@ export default function ItemForm() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // if (obj.id) {
-    //   const payload = { ...formData, Id: obj.id };
-    //   updateItem(payload)
-    //     .then(() => router.push('/Order/${orderId}'));
-    // } else {
-    const payload = { ...formData, orderId: id };
-    createItemAddToOrder(payload)
-      .then(router.push(`/Order/${id}`))
-      .catch((error) => {
-        console.error('API Error:', error);
-      });
-  // }
+    if (itemObj.id) {
+      const payload = { ...formData, Id: itemObj.id };
+      updateItem(payload)
+        .then(() => router.push(`/Order/${orderId}`));
+    } else {
+      const payload = { ...formData, orderId: id };
+      createItemAddToOrder(payload)
+        .then(router.push(`/Order/${id}`))
+        .catch((error) => {
+          console.error('API Error:', error);
+        });
+    }
   };
 
   return (
@@ -65,7 +71,7 @@ export default function ItemForm() {
         </Form.Group>
 
         <Button variant="dark" className="mt-3" type="submit">
-          Add Item
+          {itemObj.id ? 'Edit' : 'Add'} Item
         </Button>
       </Form>
 
@@ -74,14 +80,16 @@ export default function ItemForm() {
   );
 }
 
-// ItemForm.propTypes = {
-//   itemObj: PropTypes.shape({
-//     id: PropTypes.number,
-//     name: PropTypes.string,
-//     price: PropTypes.number,
-//   }),
-// };
+ItemForm.propTypes = {
+  itemObj: PropTypes.shape({
+    id: PropTypes.number,
+    name: PropTypes.string,
+    price: PropTypes.number,
+  }),
+  orderId: PropTypes.number,
+};
 
-// ItemForm.defaultProps = {
-//   itemObj: PropTypes.shape(initialState),
-// };
+ItemForm.defaultProps = {
+  itemObj: PropTypes.shape(initialState),
+  orderId: null,
+};
