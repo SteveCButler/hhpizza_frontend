@@ -10,30 +10,16 @@ export default function OrderDetails() {
   const router = useRouter();
   const { id } = router.query;
 
-  // const getTotal = () => {
-  //   let orderTotal = 0;
-  //   const orderItems = orderDetails.items;
-  //   orderItems.forEach((item) => {
-  //     orderTotal += item.price;
-  //   });
-  //   return orderTotal;
-  // };
-
   const getDetails = () => {
     getOrderDetails(id)
       .then((data) => setOrderDetails(data));
-    // .then(getTotal);
   };
 
   useEffect(() => {
-    getDetails();
+    getOrderDetails(id)
+      .then(setOrderDetails);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  // let TotalCost = 0;
-  // if (orderDetails.items != null) {
-  //   TotalCost = getTotal();
-  // }
 
   if (orderDetails.items == null) {
     return (<div />);
@@ -42,7 +28,7 @@ export default function OrderDetails() {
   return (
     <Container>
 
-      <Table border className="mt-5">
+      <Table className="mt-5">
         <thead className="mt-3 fw-bold fs-3">
           <tr>
             <th>Order:</th>

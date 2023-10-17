@@ -29,7 +29,8 @@ function Home() {
             margin: '0 auto',
           }}
         >
-          <h1>Hello, {user.fbUser.displayName}!</h1>
+          <h1 className="mb-4">HH Pizza & Wings</h1>
+          <h5>Cashier: {user.fbUser.displayName}</h5>
           <HomeMenu />
         </div>
       ) : (
