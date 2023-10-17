@@ -102,7 +102,6 @@ export default function CreateOrderForm({ orderObj }) {
         </Form.Group>
 
         <Form.Group className="mb-3" controlId="formCashierId">
-          {/* TODO: fix UserId value */}
           <Form.Control
             type="hidden"
             name="userId"

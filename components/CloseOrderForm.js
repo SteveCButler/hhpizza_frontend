@@ -12,6 +12,11 @@ const initialState = {
 const CloseOrderForm = ({ orderObj, total }) => {
   const [formData, setFormData] = useState(initialState);
   const router = useRouter();
+  const [review, setReview] = useState('');
+
+  const handleClick = (resp) => {
+    setReview(resp);
+  };
 
   useEffect(() => {
     setFormData(orderObj);
@@ -26,6 +31,8 @@ const CloseOrderForm = ({ orderObj, total }) => {
     }));
   };
 
+  console.warn('FormData: ', formData);
+
   const handleSubmit = (e) => {
     e.preventDefault();
     const payload = {
@@ -33,7 +40,9 @@ const CloseOrderForm = ({ orderObj, total }) => {
       Id: orderObj.id,
       status: 'closed',
       orderTotal: total,
+      review,
     };
+    console.warn('PAYLOAD: ', payload);
     closeOrder(payload)
       .then(() => router.push('/viewOrders'));
   };
@@ -68,6 +77,15 @@ const CloseOrderForm = ({ orderObj, total }) => {
             onChange={handleChange}
           />
         </Form.Group>
+        <hr className="mb-4" />
+        <p>How would you rate your service?</p>
+        <div className="d-flex gap-3">
+          <Button className="btn-outline-dark btn-light" onClick={(() => handleClick(0))}>Poor</Button>
+          <Button className="btn-outline-dark btn-light" onClick={(() => handleClick(1))}>OK</Button>
+          <Button className="btn-outline-dark btn-light" onClick={(() => handleClick(2))}>Good</Button>
+          <Button className="btn-outline-dark btn-light" onClick={(() => handleClick(3))}>Great</Button>
+          <Button className="btn-outline-dark btn-light" onClick={(() => handleClick(4))}>Better than Mamma</Button>
+        </div>
 
         <Button className="mt-5 btn-success fw-semi-bold fs-5" variant="primary" type="submit">
           Close Order
