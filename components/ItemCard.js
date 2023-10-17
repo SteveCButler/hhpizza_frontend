@@ -1,11 +1,14 @@
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
-// import Link from 'next/link';
+import { useRouter } from 'next/router';
+import Link from 'next/link';
 import PropTypes from 'prop-types';
 import { deleteItemById } from '../api/itemData';
 
 function ItemCard({ itemObj, onUpdate }) {
-  // const { id } = itemObj;
+  const { id } = itemObj;
+  const router = useRouter();
+  const orderId = router.query.id;
 
   const deleteItem = (itemId) => {
     if (window.confirm('Delete This Item?')) {
@@ -24,6 +27,11 @@ function ItemCard({ itemObj, onUpdate }) {
           <div className="w-25 text-center">
             ${itemObj.price.toFixed(2)}
           </div>
+          <Link passHref href={`/Item/edit/${orderId}_${id}`}>
+            <Button variant="warning" className="btn-sm" style={{ height: '32px' }}>
+              Edit
+            </Button>
+          </Link>
           <Button variant="danger" onClick={() => deleteItem(itemObj.id)} className=" me-3 btn-sm" style={{ height: '32px' }}>
             Delete
           </Button>
