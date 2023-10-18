@@ -95,6 +95,7 @@ const updateOrder = (payload) => new Promise((resolve, reject) => {
 
 // Clsoe Order
 const closeOrder = (payload) => new Promise((resolve, reject) => {
+  console.warn('CLOSE');
   fetch(`${dbUrl}/api/close-order/${payload.Id}`, {
     method: 'PUT',
     headers: {
