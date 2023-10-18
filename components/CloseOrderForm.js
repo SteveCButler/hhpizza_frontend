@@ -14,6 +14,8 @@ const CloseOrderForm = ({ orderObj, total }) => {
   const router = useRouter();
   const [review, setReview] = useState('');
 
+  console.warn('TOTAL: ', total);
+
   const handleClick = (resp) => {
     setReview(resp);
   };
@@ -108,5 +110,5 @@ CloseOrderForm.propTypes = {
     orderType: PropTypes.string,
     paymentType: PropTypes.string,
   }).isRequired,
-  total: PropTypes.number.isRequired,
+  total: PropTypes.string.isRequired,
 };
