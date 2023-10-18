@@ -112,9 +112,28 @@ const closeOrder = (payload) => new Promise((resolve, reject) => {
     .catch(reject);
 });
 
-// GET ALL ORDERS
+// GET ALL Closed ORDERS
 const getClosedOrders = () => new Promise((resolve, reject) => {
   fetch(`${dbUrl}/api/closed-orders`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      Accept: 'application/json',
+    },
+  })
+    .then(async (res) => {
+      let data;
+      if (res.ok) {
+        data = await res.json();
+        resolve(data);
+      }
+    })
+    .catch(reject);
+});
+
+// GET ALL Closed ORDERS
+const getRevenue = () => new Promise((resolve, reject) => {
+  fetch(`${dbUrl}/api/revenue`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -139,4 +158,5 @@ export {
   updateOrder,
   closeOrder,
   getClosedOrders,
+  getRevenue,
 };
